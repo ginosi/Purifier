@@ -24,7 +24,9 @@ class PurifierFilter extends AbstractFilter implements FilterInterface
      * @var array
      */
     protected $options = [
-        'purifier_config' => [],
+        'purifier_config' => [
+            'Cache.DefinitionImpl' => null,
+        ],
     ];
 
     /**

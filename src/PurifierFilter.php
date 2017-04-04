@@ -23,12 +23,7 @@ class PurifierFilter extends AbstractFilter implements FilterInterface
     /**
      * @var array
      */
-    protected $options = [
-        'purifier_config' => [
-            'Cache.DefinitionImpl' => null,
-            'Cache.SerializerPath' => '/ginosi/backoffice/data/cache',
-        ],
-    ];
+    protected $options = [];
 
     /**
      * PurifierFilter constructor.
@@ -40,9 +35,11 @@ class PurifierFilter extends AbstractFilter implements FilterInterface
     {
         $this->purifier = $purifier;
 
-        if (! empty($options)) {
-            $this->setOptions($options);
+        if (!is_null($purifier->config->get('Cache.SerializerPath'))) {
+            $options['purifier_config']['Cache.SerializerPath'] = $purifier->config->get('Cache.SerializerPath');
         }
+
+        $this->setOptions($options);
     }
 
     /**

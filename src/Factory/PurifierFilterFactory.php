@@ -5,18 +5,18 @@
 
 namespace Soflomo\Purifier\Factory;
 
+use Soflomo\Purifier\MutableCreationOptionsInterface;
+use Soflomo\Purifier\MutableCreationOptionsTrait;
 use Soflomo\Purifier\PurifierFilter;
-use Zend\Filter\FilterPluginManager;
-use Zend\ServiceManager\MutableCreationOptionsInterface;
-use Zend\ServiceManager\MutableCreationOptionsTrait;
+use Zend\ServiceManager\ServiceManager;
 
 class PurifierFilterFactory implements MutableCreationOptionsInterface
 {
     use MutableCreationOptionsTrait;
 
-    public function __invoke(FilterPluginManager $filterPluginManager)
+    public function __invoke(ServiceManager $serviceManager)
     {
-        $htmlPurifier = $filterPluginManager->getServiceLocator()->get('HTMLPurifier');
+        $htmlPurifier = $serviceManager->get('HTMLPurifier');
 
         return new PurifierFilter($htmlPurifier, $this->getCreationOptions());
     }
